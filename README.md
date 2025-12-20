@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎥 Strimo – Live Streaming Platform                        (IN PROCESS...)
 
-## Getting Started
+**Strimo** is a modern live-streaming platform built for real-time content creation and community engagement. It enables creators to broadcast live content while viewers interact instantly through chat, reactions, and other interactive features.
 
-First, run the development server:
+Strimo is inspired by platforms like Twitch, with a focus on performance, scalability, and a creator-first experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔴 Core Live Streaming Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Live Video Broadcasting
+- Stream live content such as gaming, IRL, music, coding, and more
+- Low-latency streaming for real-time interaction
+- Adaptive video quality based on network conditions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 💬 Real-Time Interaction
 
-To learn more about Next.js, take a look at the following resources:
+### Live Chat
+- Real-time chat during live streams
+- Support for emojis and reactions
+- Chat controls like slow mode and follower-only chat
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Interactive Engagement
+- Viewer interaction through polls, reactions, and live feedback
+- Strong focus on creator–viewer communication
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 👤 User & Creator System
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Creator Channels
+- Dedicated channel for each creator
+- Channel customization with profile, banner, and description
+- Stream schedule and past content
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### User Authentication
+- Secure sign-up and sign-in
+- Follow creators and receive live notifications
+- Personalized content feed
+
+---
+
+## 📺 Content Discovery
+
+### Categories & Tags
+- Streams organized by game, topic, or activity
+- Tags for language, genre, and stream type
+
+### Recommendations
+- Discover streams based on user interests
+- Trending and featured live streams
+
+---
+
+## ✂️ Video Content Features
+
+### Clips
+- Create short clips from live streams
+- Easy sharing across platforms
+- Helps creators grow their audience
+
+### Stream Archives (VODs)
+- Automatic saving of past live streams
+- Highlight, trim, or delete streams
+- Watch streams anytime after they end
+
+---
+
+## 💰 Monetization (Planned)
+
+### Creator Subscriptions
+- Monthly subscriptions to support creators
+- Subscriber-only perks such as badges and chat access
+
+### Viewer Support
+- Virtual gifts and donations
+- Real-time appreciation during live streams
+
+---
+
+## 🛡️ Moderation & Safety
+
+### Moderation Tools
+- Channel moderators to manage chat
+- User bans, timeouts, and message filtering
+- Community rule enforcement
+
+### Platform Safety
+- Content guidelines for a safe environment
+- Reporting and review systems
+
+---
+
+## 🌍 Community & Social Features
+
+### Followers & Notifications
+- Follow creators to get notified when they go live
+- In-app and email notifications
+
+### Raids & Hosting (Planned)
+- Redirect viewers to other live channels
+- Encourages collaboration and community growth
+
+---
+
+## ⚙️ Technical Features
+
+- Low-latency video delivery
+- Scalable live streaming architecture
+- Web-first platform with future mobile support
+
+---
+
+## 🛣️ Roadmap
+
+- [ ] Live streaming infrastructure
+- [ ] Real-time chat system
+- [ ] Creator dashboard
+- [ ] Monetization features
+- [ ] Advanced moderation tools
+- [ ] Mobile application support
+
+---
+
+
+
+## 🙌 Author
+
+**Dev Raj Dev**
+
+---
+
+⭐ If you like **Strimo**, don’t forget to star the repository!
