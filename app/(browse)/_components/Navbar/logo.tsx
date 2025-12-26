@@ -1,15 +1,21 @@
 import Image from "next/image";
-// import spooky from "../../../public/spooky.svg"
+import { cn } from "@/lib/utils";
+import { Poppins } from "next/font/google";
+
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+});
 
 export default function Logo() {
     return (
-        <div className="flex flex-col items-center ">
-            <div className="bg-white rounded-full p-1 ">
-            <Image src="/spooky.svg" alt="Logo" width="50" height="50" ></Image>
+        <div className="flex items-center gap-x-4 hover:opacity-75 transition ">
+            <div className="bg-white rounded-full p-1 mr-12 shrink-0 lg:mr-0 lg:shrink">
+            <Image src='/spooky.svg' alt="Logo" width="32" height="32" ></Image>
             </div>
-            <div className="flex flex-col items-center">
-            <p>Strimo</p>
-            <p>Let's Play</p>
+            <div className={cn("hidden lg:block ",font.className)}>
+            <p className="text-lg font-semibold">Strimo</p>
+            <p className="text-xs text-muted-foreground">Let&apos;s play</p>
             </div>
         </div>
     );

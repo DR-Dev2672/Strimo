@@ -8,8 +8,8 @@ export default function Logo() {
             <Image src={spooky} alt="Logo" width="50" height="50" ></Image>
             </div>
             <div className="flex flex-col items-center">
-            <p>Strimo</p>
-            <p>Let's Play</p>
+            <p className="text-lg font-semibold">Strimo</p>
+            <p className="text-xs text-muted-foreground">Let's Play</p>
             </div>
         </div>
     );
