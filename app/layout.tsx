@@ -5,6 +5,10 @@ import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import { dark } from '@clerk/themes'
 import { ThemeProvider } from "@/components/theme-provider";
 
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,21 +30,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-     <ClerkProvider appearance={{theme:dark}} >
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+     <ClerkProvider >
+    <html lang="en" >
+      <body>
        
          <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+             forcedTheme="dark"
+            storageKey="strimo-theme"
           >
+          {/* <h1>hii</h1> */}
+          
+          {/* <Link href="/sign-in"><Button variant="outline">Sign In</Button></Link> */}
             {children}
           </ThemeProvider>
       </body>
     </html>
-     </ClerkProvider>
+      </ClerkProvider>
   );
 }
