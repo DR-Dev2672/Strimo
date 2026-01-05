@@ -1,5 +1,5 @@
-export default function BrowsePage() {
+export default function Page() {
     return (
-        <div> this is browse page</div>
+        <div></div>
     );
 }
