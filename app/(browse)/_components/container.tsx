@@ -1,7 +1,30 @@
-export default function Layout({children}: {children: React.ReactNode}) {
+"use client"
+import { cn } from "@/lib/utils";
+import { useSidebar } from "@/store/use-sidebar";
+import { useEffect, useEffectEvent } from "react";
+import { useMediaQuery } from "usehooks-ts";
+
+interface ContainerProps {
+    children: React.ReactNode;
+}
+
+export function Container({children}: ContainerProps) {
+    const matches=useMediaQuery("(max-width:1024px)");
+    const {collapsed,onCollapse,onExpand}=useSidebar((state)=>state)
+
+    useEffect(()=>{
+         if(matches){
+            onCollapse();
+         }
+         else{
+            onExpand();
+         }
+    },[matches,onCollapse,onExpand])
     return (
-        <section>
-            {children}
-        </section>
+       <>
+       <div className={cn("flex-1",collapsed?"ml-[70]":"ml-[70] lg:ml-60")}>
+        {children}
+       </div>
+       </>
     );
 }
