@@ -1,8 +1,10 @@
-export default function Sidebar() {
-    return (
-        <div>
-            this is sidebar
+import { Toggle } from "./toggle";
+import { Wrapper } from "./wrapper";
 
-        </div>
+export  function Sidebar() {
+    return (
+       <Wrapper>
+            <Toggle/>
+        </Wrapper>
     );
 }
