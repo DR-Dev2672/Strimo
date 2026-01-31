@@ -1,82 +1,89 @@
-import { Webhook } from 'svix'
-import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
 
-// import { db } from '@/lib/db'
-// import { resetIngresses } from '@/actions/ingress'
 
-export async function POST(req: Request) {
-  // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
-  // const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET
- 
-  // if (!WEBHOOK_SECRET) {
-  //   throw new Error('Please add CLERK_WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local')
-  // }
+export const runtime = "nodejs";
 
+
+import { Webhook } from "svix";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import type { WebhookEvent } from "@clerk/nextjs/server";
+import { db } from "@/lib/db";
+
+
+export async function POST(req: Request): Promise<Response> {
+
+  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
+  if (!WEBHOOK_SECRET) {
+    throw new Error('Please add CLERK_WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local')
+  }
+
+    let event: WebhookEvent;
+
+   const payload = await req.json()
+   
+   const body = JSON.stringify(payload);
+   console.log(payload)
+
+  try {
+    const headerPayload = headers();
+    const svixHeaders = { 
+      "svix-id": (await headerPayload).get("svix-id") ?? "",
+      "svix-timestamp": (await headerPayload).get("svix-timestamp") ?? "",
+      "svix-signature": (await headerPayload).get("svix-signature") ?? "",
+    };
+
+    // 3️ Verify webhook signature
+    const webhook = new Webhook(WEBHOOK_SECRET);
+     event = webhook.verify(body, svixHeaders) as WebhookEvent;
+
+                   
+  } catch (error) {
+    console.error("❌ Clerk Webhook Error:", error);
+    return new NextResponse("Webhook verification failed", { status: 400 });
+  }
+
+
+  const eventType = event.type;
+  console.log(eventType,"this is event type");
   
 
-  // Get the body
-  const payload = await req.json()
-  const body = JSON.stringify(payload);
+  if (eventType === "user.created") {
 
-  // Create a new Svix instance with your secret.
-  // const wh = new Webhook(WEBHOOK_SECRET);
+    console.log("this works")
+    console.log(payload.data.id,"payload data id");
+    // await db.user.create({
+    //   data: {
+    //     externalUserId: Math.random().toString(),
+    //     username: "dev"+Math.random().toString().slice(2,8),
+    //     imageUrl: "image"+Math.random().toString().slice(2,8),
+        
+        
+    //   },
+    // });
+  }
 
-  // let evt: WebhookEvent
-
-  // Verify the payload with the headers
-  // try {
-  //   evt = wh.verify(body, {
-  //     "svix-id": svix_id,
-  //     "svix-timestamp": svix_timestamp,
-  //     "svix-signature": svix_signature,
-  //   }) as WebhookEvent
-  // } catch (err) {
-  //   console.error('Error verifying webhook:', err);
-  //   return new Response('Error occured', {
-  //     status: 400
-  //   })
+  // if (eventType === "user.updated") {
+  //   await db.user.update({
+  //     where: {
+  //       externalUserId: payload.data.id,
+  //     },
+  //     data: {
+  //       username: payload.data.username,
+  //       imageUrl: payload.data.image_url,
+  //     },
+  //   });
   // }
-
-  // const eventType = evt.type;
-
-//   if (eventType === "user.created") {
-//     await db.user.create({
-//       data: {
-//         externalUserId: payload.data.id,
-//         username: payload.data.username,
-//         imageUrl: payload.data.image_url,
-//         stream: {
-//           create: {
-//             name: `${payload.data.username}'s stream`,
-//           },
-//         },
-//       },
-//     });
-//   }
-
-//   if (eventType === "user.updated") {
-//     await db.user.update({
-//       where: {
-//         externalUserId: payload.data.id,
-//       },
-//       data: {
-//         username: payload.data.username,
-//         imageUrl: payload.data.image_url,
-//       },
-//     });
-//   }
  
-//   if (eventType === "user.deleted") {
-//     // await resetIngresses(payload.data.id);
+  // if (eventType === "user.deleted") {
+  //   // await resetIngresses(payload.data.id);
+    
 
-//     await db.user.delete({
-//       where: {
-//         externalUserId: payload.data.id,
-//       },
-//     });
-//   }
-console.log(body);
+  //   await db.user.delete({
+  //     where: {
+  //       externalUserId: payload.data.id,
+  //     },
+  //   });
+  // }
  
-  // return new Response('', { status: 200 })
-};
+  return new Response('', { status: 200 })
+}
