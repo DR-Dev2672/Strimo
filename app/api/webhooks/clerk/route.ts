@@ -7,7 +7,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import type { WebhookEvent } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 
 export async function POST(req: Request): Promise<Response> {
@@ -19,10 +19,10 @@ export async function POST(req: Request): Promise<Response> {
 
     let event: WebhookEvent;
 
-   const payload = await req.json()
+   const payload  = await req.json()
    
    const body = JSON.stringify(payload);
-   console.log(payload)
+   console.log(body)
 
   try {
     const headerPayload = headers();
@@ -48,18 +48,27 @@ export async function POST(req: Request): Promise<Response> {
   
 
   if (eventType === "user.created") {
+    console.log("this works");
+    console.log(payload.data.id, "payload data id");
 
-    console.log("this works")
-    console.log(payload.data.id,"payload data id");
-    // await db.user.create({
-    //   data: {
-    //     externalUserId: Math.random().toString(),
-    //     username: "dev"+Math.random().toString().slice(2,8),
-    //     imageUrl: "image"+Math.random().toString().slice(2,8),
-        
-        
-    //   },
-    // });
+    const user = await prisma.userdetail.create({
+    data: {
+      name: 'Alice',
+      email: 'alice@prisma.io',
+      posts: {
+        create: {
+          title: 'Hello World',
+          content: 'This is my first post!',
+          published: true,
+        },
+      },
+    },
+    include: {
+      posts: true,
+    },
+  })
+  console.log('Created user:', user)
+    
   }
 
   // if (eventType === "user.updated") {
