@@ -9,8 +9,12 @@ import { NextResponse } from "next/server";
 import type { WebhookEvent } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 
+const connectionString = process.env.DATABASE_URL;
 
-export async function POST(req: Request): Promise<Response> {
+
+
+
+export async function POST(req: Request){
 
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
   if (!WEBHOOK_SECRET) {
@@ -19,10 +23,10 @@ export async function POST(req: Request): Promise<Response> {
 
     let event: WebhookEvent;
 
-   const payload  = await req.json()
+   const payload  = await req.text()
    
-   const body = JSON.stringify(payload);
-   console.log(body)
+   
+   console.log(payload)
 
   try {
     const headerPayload = headers();
@@ -34,7 +38,7 @@ export async function POST(req: Request): Promise<Response> {
 
     // 3️ Verify webhook signature
     const webhook = new Webhook(WEBHOOK_SECRET);
-     event = webhook.verify(body, svixHeaders) as WebhookEvent;
+     event = webhook.verify(payload, svixHeaders) as WebhookEvent;
 
                    
   } catch (error) {
@@ -49,9 +53,9 @@ export async function POST(req: Request): Promise<Response> {
 
   if (eventType === "user.created") {
     console.log("this works");
-    console.log(payload.data.id, "payload data id");
+    
 
-    const user = await prisma.userdetail.create({
+  const user = await prisma.user.create({
     data: {
       name: 'Alice',
       email: 'alice@prisma.io',
@@ -63,11 +67,12 @@ export async function POST(req: Request): Promise<Response> {
         },
       },
     },
-    include: {
-      posts: true,
-    },
+    // include: {
+    //   posts: true,
+    // },
   })
   console.log('Created user:', user)
+
     
   }
 
