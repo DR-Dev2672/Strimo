@@ -9,7 +9,7 @@ import { NextResponse } from "next/server";
 import type { WebhookEvent } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 
-const connectionString = process.env.DATABASE_URL;
+// const connectionString = process.env.DATABASE_URL;
 
 
 
@@ -23,10 +23,10 @@ export async function POST(req: Request){
 
     let event: WebhookEvent;
 
-   const payload  = await req.text()
+   const  payload  = await req.text()
+   const parsedPayload = JSON.parse(payload)
    
-   
-   console.log(payload)
+  //  console.log(body.data)
 
   try {
     const headerPayload = headers();
@@ -49,52 +49,45 @@ export async function POST(req: Request){
 
   const eventType = event.type;
   console.log(eventType,"this is event type");
+  console.log(parsedPayload.data);
   
 
   if (eventType === "user.created") {
-    console.log("this works");
-    
-
-  const user = await prisma.user.create({
-    data: {
-      name: 'Alice',
-      email: 'alice@prisma.io',
-      posts: {
-        create: {
-          title: 'Hello World',
-          content: 'This is my first post!',
-          published: true,
+    await prisma.user.create({
+      data: {
+        externalUserId: parsedPayload.data.id,
+        username: parsedPayload.data.username,
+        imageUrl: parsedPayload.data.image_url,
+        stream: {
+          create: {
+            name: `${parsedPayload.data.username}'s stream`,
+          },
         },
       },
-    },
-    // include: {
-    //   posts: true,
-    // },
-  })
-  console.log('Created user:', user)
+    });
 
     
   }
 
   // if (eventType === "user.updated") {
-  //   await db.user.update({
+  //   await prisma.user.update({
   //     where: {
-  //       externalUserId: payload.data.id,
+  //       externalUserId: parsedPayload.data.id,
   //     },
   //     data: {
-  //       username: payload.data.username,
-  //       imageUrl: payload.data.image_url,
+  //       username: parsedPayload.data.username,
+  //       imageUrl: parsedPayload.data.image_url,
   //     },
   //   });
   // }
  
   // if (eventType === "user.deleted") {
-  //   // await resetIngresses(payload.data.id);
+  //   // await resetIngresses(parsedPayload.data.id);
     
 
-  //   await db.user.delete({
+  //   await prisma.user.delete({
   //     where: {
-  //       externalUserId: payload.data.id,
+  //       externalUserId: parsedPayload.data.id,
   //     },
   //   });
   // }
