@@ -18,7 +18,10 @@ let users:any=[];
 if(selfId){
     users=await prisma.user.findMany({
         where:{
+            NOT:
+            {
             id:selfId,
+        }
         }
     })
 }
