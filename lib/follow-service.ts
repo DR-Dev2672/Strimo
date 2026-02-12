@@ -100,6 +100,7 @@ export const unfollowUser=async(id:string)=>{
         throw new Error("User not found");
     }
     if(otherUser.id===self.id){
+        // console.log("this is same")
         throw new Error("You cannot unfollow yourself");
     }
 
