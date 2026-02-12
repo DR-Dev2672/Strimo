@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Toaster } from "sonner";
 
 
 const geistSans = Geist({
@@ -42,6 +43,7 @@ export default function RootLayout({
           {/* <h1>hii</h1> */}
           
           {/* <Link href="/sign-in"><Button variant="outline">Sign In</Button></Link> */}
+          <Toaster theme="light" position="bottom-center" />  
             {children}
           </ThemeProvider>
       </body>
