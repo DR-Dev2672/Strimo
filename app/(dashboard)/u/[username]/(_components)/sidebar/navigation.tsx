@@ -38,6 +38,8 @@ export const Navigation = () => {
     },
   ];
 
+  
+
   if (!user?.username) {
     return (
       <ul className="space-y-2">
