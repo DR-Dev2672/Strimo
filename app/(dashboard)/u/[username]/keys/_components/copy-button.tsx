@@ -30,6 +30,9 @@ export const CopyButton=({
     return (
         <Button
         onClick={onCopy}
+        disabled={!value || isCopied}
+        variant="ghost"
+        size="icon"
         >
             <Icon className="h-4 w-4"/>
         </Button>
