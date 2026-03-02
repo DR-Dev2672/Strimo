@@ -9,9 +9,9 @@ import {
   type CreateIngressOptions,
 } from "livekit-server-sdk";
 
-import { TrackSource } from "livekit-server-sdk/dist/proto/livekit_models";
+import { TrackSource } from "livekit-server-sdk"
 
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import { getSelf } from "@/lib/auth-service";
 import { revalidatePath } from "next/cache";
 
@@ -54,11 +54,11 @@ export const createIngress = async (ingressType: IngressInput) => {
   };
 
   if (ingressType === IngressInput.WHIP_INPUT) {
-    options.bypassTranscoding = true;
+    options.enableTranscoding = true;
   } else {
     options.video = {
       source: TrackSource.CAMERA,
-      preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
+       preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
     };
     options.audio = {
       source: TrackSource.MICROPHONE,
@@ -75,7 +75,7 @@ export const createIngress = async (ingressType: IngressInput) => {
     throw new Error("Failed to create ingress");
   }
 
-  await db.stream.update({
+  await prisma.stream.update({
     where: { userId: self.id },
     data: {
       ingressId: ingress.ingressId,
