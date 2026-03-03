@@ -29,8 +29,9 @@ export const KeyCard = ({
               placeholder="Stream key"
               disabled
               type={show?"text":"password"}
+               value={value || ""}
             />
-            <CopyButton />
+            <CopyButton value={value||""} />
           </div>
           <Button
           onClick={()=>setShow(!show)}
