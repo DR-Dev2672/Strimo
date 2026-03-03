@@ -14,7 +14,9 @@ export const UrlCard = ({ value }: UrlCardProps) => {
         <div className="w-full flex items-center gap-x-2">
           <Input 
           disabled
-          placeholder="Server Url" />
+          placeholder="Server Url" 
+          value={value || ""  }/>
+          
           <CopyButton value={value||""} />
         </div>
         </div>
