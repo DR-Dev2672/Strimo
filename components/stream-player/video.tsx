@@ -1,5 +1,10 @@
-import { useConnectionState, useRemoteParticipant, useRemoteParticipants, useTracks } from "@livekit/components-react";
+"use client";
+
+import { useConnectionState, useRemoteParticipant, useTracks } from "@livekit/components-react";
 import { ConnectionState, Track } from "livekit-client";
+import { OfflineVideo } from "./offline-video";
+import { LoadingVideo } from "./loading-video";
+import { LiveVideo } from "./live-video";
 
 interface VideoProps{
     hostName:string;
@@ -9,31 +14,36 @@ interface VideoProps{
 export const Video=({
     hostName,
     hostIdentity
-    }:VideoProps    
+    }:VideoProps     
     
 )=>{
 
     const connectionState=useConnectionState();
-    const participants=useRemoteParticipants();
+    console.log("Connection State:", connectionState);
+    const participant=useRemoteParticipant(hostIdentity);
     const tracks=useTracks([
         Track.Source.Camera,
         Track.Source.Microphone
     ]).filter((track)=>track.participant.identity===hostIdentity);
 
     let content;
-    if(!participants && connectionState===ConnectionState.Connected){
+    console.log(connectionState);
+    if(!participant && connectionState===ConnectionState.Connected){
         content =<OfflineVideo username={hostName}/>;
     }
-    else if(!participants ||tracks.length===0){
-        content=<LoadingVideo label={connectionState}/>;
-    }
+    else if (!participant || tracks.length === 0) {
+    content = <LiveVideo participant={participant}/>
+     } 
+    
     else{
-        content=<LiveVideo participant={participants}/>
+        content=<LiveVideo participant={participant}/>
     }
 
 
     return (
-     <div>this is video section</div>
+     <div className="aspect-video border-b group relative">
+        {content}
+     </div>
     )
 
 }
