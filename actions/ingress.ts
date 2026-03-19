@@ -84,7 +84,9 @@ export const createIngress = async (ingressType: IngressInput) => {
       streamKey: ingress.streamKey,
     },
   });
-
+  
+  const ingressJson = JSON.stringify(ingress);
+  console.log(ingress);
   revalidatePath(`/u/${self.username}/keys`);
-  return ingress;
+  return ingressJson;
 };
