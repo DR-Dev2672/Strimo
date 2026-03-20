@@ -3,6 +3,10 @@
 import { useViewerToken } from "@/hook/use-viewer-token";
 import { LiveKitRoom } from "@livekit/components-react";
 import { Video } from "./video";
+import { cn } from "@/lib/utils";
+import { ChatToggle } from "./chat-toggle";
+import { Chat } from "./chat";
+import { useChatSidebar } from "@/store/use-chat-sidebar";
 
 type CustomStream = {
     id: string;
@@ -37,20 +41,50 @@ export const StreamPlayer=(
 )=>{
 
     const {token,name,identity}=  useViewerToken(user.id);
-      
+     const collapsed  = useChatSidebar((state) => state); 
     
 
 
     return (
-        <div>
-           <LiveKitRoom serverUrl={process.env.LIVEKIT_URL} token={token} >
-              <div> 
+        <>
+        {collapsed &&
+        (<div className="hidden lg:block fixed top-[100px] right-2 z-50">
+            <ChatToggle/>
+        </div>)
+        }
+           <LiveKitRoom serverUrl={process.env.LIVEKIT_URL} token={token} 
+           className={cn("grid grid-cols-1 lg:gap-y-0 lg:grid-cols-3 2xl:grid-cols-3 h-full bg-green-300 ",
+             collapsed && "lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
+           )}
+           >
+              <div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10"> 
                 <Video
                 hostName={user.username}
                 hostIdentity={user.id}
                 />
               </div>
+              <div
+              className={cn(
+                "col-span-1",
+                collapsed && "hidden"
+
+              )}
+              >
+                <Chat
+                 viewerName={name}
+                 hostName={user.username}
+                 hostIdentity={user.id}
+                 isFollowing={isFollowing}
+                 isChatEnabled={stream?.isChatEnabled}
+                 isChatDelayed={stream?.isChatDelayed}
+                 isChatFollowersOnly={stream?.isChatFollowersOnly}
+
+
+
+                />
+
+              </div>
            </LiveKitRoom>
-        </div>
+        </>
     )
 }
