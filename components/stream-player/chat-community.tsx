@@ -9,5 +9,7 @@ export const ChatCommunity=({
     hostName,
     isHidden
 }:ChatCommunityProps)=>{
-
+   return (
+    <div></div>
+   )
 }
