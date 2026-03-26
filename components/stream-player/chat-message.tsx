@@ -2,6 +2,7 @@
 
 import { ReceivedChatMessage } from "@livekit/components-react"
 import { format } from "date-fns";
+import stringToColor from "string-to-color";
 
 interface ChatMessageProps{
     data:ReceivedChatMessage
