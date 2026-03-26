@@ -3,12 +3,13 @@
 import { NEXT_CACHE_REVALIDATED_TAGS_HEADER } from "next/dist/lib/constants"
 import { ChatHeader } from "./chat-header"
 import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar"
-import { ChatCommunity } from "./chat-community"
+
 import { ChatForm } from "./chat-form"
 import { ChatList } from "./chat-list"
 import { useChat, useConnectionState, useRemoteParticipant } from "@livekit/components-react"
 import { useMemo, useState } from "react"
 import { ConnectionState } from "livekit-client"
+import { ChatCommunity } from "./chat-community"
 
 interface ChatProps{
     hostName:string,

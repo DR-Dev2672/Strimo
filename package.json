@@ -39,6 +39,7 @@
     "react-resizable-panels": "^4.6.2",
     "recharts": "^2.15.4",
     "sonner": "^2.0.7",
+    "string-to-color": "^2.2.2",
     "svix": "^1.84.1",
     "tailwind-merge": "^3.4.0",
     "usehooks-ts": "^3.1.1",
