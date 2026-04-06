@@ -8,6 +8,15 @@ interface VolumeControlProps{
  value:number,
  onChange:(value:number)=>void
 }
+
+
+
+// Kitna masoom rangeen hai yeh sama
+// Husn aur ishq ki aaj mairaaj hai
+// Husn aur ishq ki aaj mairaaj hai
+// Kal ki kis ko khabar jaane jaan
+// Rok lo aaj ki raat ko
+
 export const VolumeControl=({
     onToggle,
     value,

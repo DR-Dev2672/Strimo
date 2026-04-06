@@ -23,6 +23,8 @@ export const ChatToggle = () => {
     }
   };
 
+  
+
   const label = collapsed ? "Expand" : "Collapse";
 
   return (
