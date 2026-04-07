@@ -60,19 +60,19 @@ export const LiveVideo=({
         videoRef.current.volume=isMuted?0.5:0;
       }
     }
-  //   const handleFullscreenChange = () => {
-  //   const isCurrentlyFullscreen = document.fullscreenElement !== null;
-  //   setIsFullscreen(isCurrentlyFullscreen);
-  // }
+    const handleFullscreenChange = () => {
+    const isCurrentlyFullscreen = document.fullscreenElement !== null;
+    setIsFullscreen(isCurrentlyFullscreen);
+  }
 
-  // useEventListener("fullscreenchange", handleFullscreenChange, wrapperRef);
+  useEventListener("fullscreenchange", handleFullscreenChange, wrapperRef);
 
 
 
     return (
       <div
        ref={wrapperRef}
-       className="relative h-full flex bg-red-400">
+       className="relative h-full flex ">
         <video
         ref={videoRef}
         width="100%"

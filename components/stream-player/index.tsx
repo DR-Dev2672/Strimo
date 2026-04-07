@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
 import { ChatToggle } from "./chat-toggle";
 import { Chat } from "./chat";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
+import { Header } from "./header";
+import { InfoCard } from "./info-card";
+import { AboutCard } from "./about-card";
 
 type CustomStream = {
     id: string;
@@ -41,7 +44,7 @@ export const StreamPlayer=(
 )=>{
 
     const {token,name,identity}=  useViewerToken(user.id);
-     const collapsed  = useChatSidebar((state) => state); 
+     const collapsed  = false; 
     
 
 
@@ -53,7 +56,7 @@ export const StreamPlayer=(
         </div>)
         }
            <LiveKitRoom serverUrl={process.env.LIVEKIT_URL} token={token} 
-           className={cn("grid grid-cols-1 lg:gap-y-0 lg:grid-cols-3 2xl:grid-cols-3 h-full bg-green-300 ",
+           className={cn("grid grid-cols-1 lg:gap-y-0 lg:grid-cols-3 2xl:grid-cols-3 h-full  ",
              collapsed && "lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
            )}
            >
@@ -62,6 +65,21 @@ export const StreamPlayer=(
                 hostName={user.username}
                 hostIdentity={user.id}
                 />
+                <Header
+                hostName={user.username}
+                hostIdentity={user.id}
+                viewerIdentity={identity}
+                imageUrl={user.imageUrl}
+                name={stream?.name}
+                />
+                <InfoCard
+                hostIdentity={user.id}
+                viewerIdentity={identity}
+                name={stream?.name}
+                thumbnailUrl={stream?.thumbnailUrl}/>
+
+                
+                <AboutCard/>
               </div>
               <div
               className={cn(
