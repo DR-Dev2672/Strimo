@@ -10,14 +10,15 @@ const receiver = new WebhookReceiver(
 
 export async function POST(req: Request) {
   const body = await req.text();
-  const headerPayload = headers();
+  
   const authorization = req.headers.get("Authorization");
 
   if (!authorization) {
     return new Response("No authorization header", { status: 400 });
   }
+  
 
-  const event = await receiver.receive(body, authorization);
+  const event = await  receiver.receive(body, authorization);
 
   if (event.event === "ingress_started") {
     await prisma.stream.update({

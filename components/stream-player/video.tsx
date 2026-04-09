@@ -18,7 +18,9 @@ export const Video=({
     
 )=>{
 
+
     const connectionState=useConnectionState();
+
     console.log("Connection State:", connectionState);
     const participant=useRemoteParticipant(hostIdentity);
     const tracks=useTracks([
