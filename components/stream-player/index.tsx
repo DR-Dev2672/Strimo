@@ -55,7 +55,9 @@ export const StreamPlayer=(
             <ChatToggle/>
         </div>)
         }
-           <LiveKitRoom serverUrl={process.env.LIVEKIT_URL} token={token} 
+           <LiveKitRoom
+            serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL}
+           token={token} 
            className={cn("grid grid-cols-1 lg:gap-y-0 lg:grid-cols-3 2xl:grid-cols-3 h-full  ",
              collapsed && "lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
            )}
