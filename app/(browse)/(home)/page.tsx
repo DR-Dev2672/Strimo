@@ -1,4 +1,4 @@
-import { Results } from "./_components/Results";
+import { Results } from "./_components/results";
 
 export default function Page() {
     return (
