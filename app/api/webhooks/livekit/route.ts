@@ -3,6 +3,8 @@ import { WebhookReceiver } from "livekit-server-sdk";
 
 import { prisma } from "@/lib/prisma";
 
+export const runtime = "nodejs";
+
 const receiver = new WebhookReceiver(
   process.env.LIVEKIT_API_KEY!,
   process.env.LIVEKIT_API_SECRET!
@@ -11,16 +13,17 @@ const receiver = new WebhookReceiver(
 export async function POST(req: Request) {
   const body = await req.text();
   
-  const authorization = req.headers.get("Authorization");
+  const authorization = req.headers.get("authorization");
 
   if (!authorization) {
     return new Response("No authorization header", { status: 400 });
   }
   
 
-  const event = await  receiver.receive(body, authorization);
+  const event =  await receiver.receive(body, authorization);
+  
 
-  if (event.event === "ingress_started") {
+  if (event.event === "ingress_started" ) {
     await prisma.stream.update({
       where: {
         ingressId: event.ingressInfo?.ingressId,
@@ -31,7 +34,7 @@ export async function POST(req: Request) {
     });
   }
 
-  if (event.event === "ingress_ended") {
+  if (event.event === "ingress_ended" ) {
     await prisma.stream.update({
       where: {
         ingressId: event.ingressInfo?.ingressId,
@@ -41,4 +44,6 @@ export async function POST(req: Request) {
       },
     });
   }
+   return new Response("OK", { status: 200 });
+
 }
