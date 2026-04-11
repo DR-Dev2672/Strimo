@@ -60,7 +60,7 @@ export const Actions = ({
     <Button
       disabled={isPending || isHost}
       onClick={toggleFollow}
-      variant="primary"
+      variant="ghost"
       size="sm"
       className="w-full lg:w-auto"
     >

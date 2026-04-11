@@ -1,7 +1,9 @@
 
 import { Thumbnail } from "@/components/thumbnail";
 import { UserAvatar } from "@/components/user-avatar";
-import { User } from "@prisma/client";
+import { User } from "@/generated/prisma/client";
+
+
 import Link from "next/link";
 
 interface ResultCardProps {

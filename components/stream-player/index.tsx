@@ -40,11 +40,12 @@ interface StreamPlayerProps {
 export const StreamPlayer=(
    { user,
     stream, 
-    isFollowing}:StreamPlayerProps
+    isFollowing
+    }:StreamPlayerProps
 )=>{
 
     const {token,name,identity}=  useViewerToken(user.id);
-     const collapsed  = false; 
+     const { collapsed } = useChatSidebar((state) => state);
     
 
 
@@ -72,16 +73,23 @@ export const StreamPlayer=(
                 hostIdentity={user.id}
                 viewerIdentity={identity}
                 imageUrl={user.imageUrl}
-                name={stream?.name}
+                isFollowing={isFollowing}
+                name={stream.name}
                 />
                 <InfoCard
                 hostIdentity={user.id}
                 viewerIdentity={identity}
-                name={stream?.name}
-                thumbnailUrl={stream?.thumbnailUrl}/>
+                name={stream.name}
+                thumbnailUrl={stream.thumbnailUrl}/>
 
                 
-                <AboutCard/>
+                <AboutCard
+                 hostName={user.username}
+                 hostIdentity={user.id}
+                 viewerIdentity={identity}
+                 bio={user.bio}
+                 followedByCount={user._count.followedBy}
+                 />
               </div>
               <div
               className={cn(
@@ -95,9 +103,9 @@ export const StreamPlayer=(
                  hostName={user.username}
                  hostIdentity={user.id}
                  isFollowing={isFollowing}
-                 isChatEnabled={stream?.isChatEnabled}
-                 isChatDelayed={stream?.isChatDelayed}
-                 isChatFollowersOnly={stream?.isChatFollowersOnly}
+                 isChatEnabled={stream.isChatEnabled}
+                 isChatDelayed={stream.isChatDelayed}
+                 isChatFollowersOnly={stream.isChatFollowersOnly}
 
 
 

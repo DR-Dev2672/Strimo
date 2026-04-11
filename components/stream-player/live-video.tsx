@@ -65,7 +65,11 @@ export const LiveVideo=({
     setIsFullscreen(isCurrentlyFullscreen);
   }
 
-  useEventListener("fullscreenchange", handleFullscreenChange, wrapperRef);
+  // useEventListener("fullscreenchange", handleFullscreenChange, wrapperRef);
+
+  const docRef = useRef<Document>(document);
+
+    useEventListener("fullscreenchange", handleFullscreenChange, docRef);
 
 
 
@@ -78,7 +82,7 @@ export const LiveVideo=({
         width="100%"
         />
         <div className="absolute top-0 h-full w-full opacity-0 hover:opacity-100 hover:transition-all ">
-         <div className="absolute bottom-0 h-14 w-full flex items-center justify-between bg-gradient-to-r  from-neutral-900 px-4  ">
+         <div className="absolute bottom-0 h-14 w-full flex items-center justify-between bg-linear-to-r  from-neutral-900 px-4  ">
            <VolumeControl
            onChange={onVolumeChange}
            value={volume}

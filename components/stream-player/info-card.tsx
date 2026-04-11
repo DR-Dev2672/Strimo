@@ -61,7 +61,7 @@ export const InfoCard = ({
               Thumbnail
             </h3>
             {thumbnailUrl && (
-              <div className="relative aspect-video rounded-md overflow-hidden w-[200px] border border-white/10">
+              <div className="relative aspect-video rounded-md overflow-hidden w-[200] border border-white/10">
                 <Image
                   fill
                   src={thumbnailUrl}
