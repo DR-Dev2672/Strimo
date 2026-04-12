@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import { dark } from '@clerk/themes'
 import { ThemeProvider } from "@/components/theme-provider";
+
+import "./globals.css";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
