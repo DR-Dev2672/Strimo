@@ -1,10 +1,11 @@
 "use server";
 
-import { Stream } from "@prisma/client";
+
 import { revalidatePath } from "next/cache";
 
 import { getSelf } from "@/lib/auth-service";
 import { prisma } from "@/lib/prisma";
+import { Stream } from "@/generated/prisma/client";
 
 export const updateStream = async (values: Partial<Stream>) => {
   try {
