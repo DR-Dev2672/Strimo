@@ -47,7 +47,9 @@ export const StreamPlayer=(
     const {token,name,identity}=  useViewerToken(user.id);
      const { collapsed } = useChatSidebar((state) => state);
     
-
+    if (!stream) {
+        return null;
+    }
 
     return (
         <>
@@ -103,9 +105,9 @@ export const StreamPlayer=(
                  hostName={user.username}
                  hostIdentity={user.id}
                  isFollowing={isFollowing}
-                 isChatEnabled={stream.isChatEnabled}
-                 isChatDelayed={stream.isChatDelayed}
-                 isChatFollowersOnly={stream.isChatFollowersOnly}
+                 isChatEnabled={stream?.isChatEnabled}
+                 isChatDelayed={stream?.isChatDelayed}
+                 isChatFollowersOnly={stream?.isChatFollowersOnly}
 
 
 
