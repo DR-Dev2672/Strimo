@@ -57,15 +57,15 @@ export const createIngress = async (ingressType: IngressInput) => {
   if (ingressType === IngressInput.WHIP_INPUT) {
     options.bypassTranscoding = true;
   } else {
-    options.video = {
+    (options as any).video = {
       source: TrackSource.CAMERA,
-      preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
+      preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS_HIGH_MOTION,
     };
-    options.audio = {
+    (options as any).audio = {
       source: TrackSource.MICROPHONE,
-      preset: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS
+      preset: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS,
     };
-  };
+  }
 
   const ingress = await ingressClient.createIngress(
     ingressType,
@@ -76,7 +76,7 @@ export const createIngress = async (ingressType: IngressInput) => {
     throw new Error("Failed to create ingress");
   }
 
-  await db.stream.update({
+  await prisma.stream.update({
     where: { userId: self.id },
     data: {
       ingressId: ingress.ingressId,
