@@ -119,7 +119,7 @@ export const InfoModal = ({
             ) : (
               <div className="rounded-xl border outline-dashed outline-muted">
                 <UploadDropzone
-                  endpoint="thumbnailUploader"
+                  endpoint="imageUploader"
                   appearance={{
                     label: {
                       color: "#FFFFFF"
