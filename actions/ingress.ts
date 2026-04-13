@@ -15,14 +15,17 @@ import {
 import { prisma } from "@/lib/prisma";
 import { getSelf } from "@/lib/auth-service";
 import { revalidatePath } from "next/cache";
+console.log("URL:", process.env.LIVEKIT_URL);
+console.log("KEY:", process.env.LIVEKIT_API_KEY);
+console.log("SECRET:", process.env.LIVEKIT_API_SECRET);
 
 const roomService = new RoomServiceClient(
-  process.env.LIVEKIT_API_URL!,
+  process.env.LIVEKIT_URL!,
   process.env.LIVEKIT_API_KEY!,
   process.env.LIVEKIT_API_SECRET!,
 );
 
-const ingressClient = new IngressClient(process.env.LIVEKIT_API_URL!);
+const ingressClient = new IngressClient(process.env.LIVEKIT_URL!);
 
 export const resetIngresses = async (hostIdentity: string) => {
   const ingresses = await ingressClient.listIngress({
@@ -54,28 +57,30 @@ export const createIngress = async (ingressType: IngressInput) => {
     participantIdentity: self.id,
   };
 
+
   if (ingressType === IngressInput.WHIP_INPUT) {
     options.bypassTranscoding = true;
   } else {
     (options as any).video = {
       source: TrackSource.CAMERA,
-      preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS_HIGH_MOTION,
+      preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
     };
     (options as any).audio = {
       source: TrackSource.MICROPHONE,
       preset: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS,
     };
   }
+ 
 
   const ingress = await ingressClient.createIngress(
     ingressType,
     options,
   );
+ 
 
   if (!ingress || !ingress.url || !ingress.streamKey) {
     throw new Error("Failed to create ingress");
   }
-
   await prisma.stream.update({
     where: { userId: self.id },
     data: {

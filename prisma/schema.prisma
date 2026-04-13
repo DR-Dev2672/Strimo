@@ -1,11 +1,10 @@
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
-
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
 }
 
 
@@ -50,7 +49,7 @@ model Stream {
 
   @@index([userId])
   @@index([ingressId])
-  @@fulltext([name])
+  
 }
 
 model Follow {

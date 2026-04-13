@@ -1,26 +1,10 @@
-import "dotenv/config";
-import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import { PrismaClient } from '../generated/prisma/client';
+import 'dotenv/config'
 
+import { PrismaNeon } from '@prisma/adapter-neon'
+import { PrismaClient } from '@/generated/prisma/client'
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
-const adapter = new PrismaMariaDb({
-  host: process.env.DATABASE_HOST,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
-  connectionLimit: 10
-});
+const adapter = new PrismaNeon({
+  connectionString: process.env.DB_URL!,
+})
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    adapter,
-    log: ["error"], // avoid verbose logs in production
-  });
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
-}
+export const prisma = new PrismaClient({ adapter })

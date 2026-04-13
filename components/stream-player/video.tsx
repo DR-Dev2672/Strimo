@@ -23,6 +23,7 @@ export const Video = ({
   hostIdentity,
 }: VideoProps) => {
   const connectionState = useConnectionState();
+  console.log("Connection State:", connectionState);
   const participant = useRemoteParticipant(hostIdentity);
   const tracks = useTracks([
     Track.Source.Camera,
