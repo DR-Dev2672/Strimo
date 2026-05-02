@@ -24,11 +24,13 @@ export const Results=async({
                 )
                 
              }
+             <div className="flex flex-col gap-y-4">
              {
                 data.map((stream)=>(
                     <ResultCard data={stream} key={stream.id} />
                 ))
              }
+             </div>
             
         </div>
     )
